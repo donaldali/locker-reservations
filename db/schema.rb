@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409134231) do
+ActiveRecord::Schema.define(version: 20150409145647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,13 +19,13 @@ ActiveRecord::Schema.define(version: 20150409134231) do
   create_table "customers", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "number"
+    t.string   "room_number"
     t.boolean  "checked_in"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "customers", ["number"], name: "index_customers_on_number", using: :btree
+  add_index "customers", ["room_number"], name: "index_customers_on_room_number", using: :btree
 
   create_table "lockers", force: :cascade do |t|
     t.string   "number"

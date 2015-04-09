@@ -13,7 +13,6 @@ describe Locker do
   describe "validations" do
     it { should validate_presence_of(:number) }
     it { should validate_presence_of(:size) }
-    it { should validate_presence_of(:reservation_id) }
     it { should validate_uniqueness_of(:number).case_insensitive }
   end
 
