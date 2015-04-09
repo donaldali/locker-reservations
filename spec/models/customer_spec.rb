@@ -16,6 +16,11 @@ describe Customer do
     it { should validate_presence_of(:number) }
     it { should validate_uniqueness_of(:number).case_insensitive }
   end
+
+  describe "associations" do
+    it { should have_many(:reservations).dependent(:destroy) }
+  end
+
   describe "#full_name" do
     it "combines first and last names" do
       expect(customer.full_name).to eq("John Doe")
