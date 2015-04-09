@@ -4,6 +4,7 @@ describe Reservation do
   let(:reservation) { create(:reservation) }
   subject { reservation }
 
+  it { should be_valid }
   it { should respond_to(:number) }
   it { should respond_to(:customer_id) }
 
@@ -15,5 +16,6 @@ describe Reservation do
 
   describe "associations" do
     it { should belong_to(:customer) }
+    it { should have_many(:lockers) }
   end
 end
