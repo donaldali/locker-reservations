@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: locker_reservations_production
-  username: locker_reservations
-  password: <%= ENV['LOCKER_RESERVATIONS_DATABASE_PASSWORD'] %>
+  # username: locker_reservations
+  # password: <%= ENV['LOCKER_RESERVATIONS_DATABASE_PASSWORD'] %>
