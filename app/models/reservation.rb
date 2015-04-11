@@ -12,8 +12,9 @@ class Reservation < ActiveRecord::Base
   validates_with ReservationValidator
 
   before_validation :set_reservation_number, on: :create
-  before_create :set_customer
-  before_create :assign_lockers
+  before_create     :set_customer
+  before_create     :assign_lockers
+  before_destroy    :unassign_lockers
 
 
 
@@ -80,8 +81,14 @@ class Reservation < ActiveRecord::Base
   end
 
   def add_assigned_lockers assigned
-    assigned.update_all(assigned: true)
+    assigned.each { |locker| locker.update_attributes(assigned: true) }
     self.lockers << assigned
+  end
+
+  def unassign_lockers
+    self.lockers.each do |locker|
+      locker.update_attributes(assigned: false, reservation_id: nil)
+    end
   end
 
 end

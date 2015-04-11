@@ -84,5 +84,28 @@ describe Reservation do
       expect(reservation.customer).to eq(customer)
     end
   end
-  
+
+  describe "destroy" do
+    let!(:customer)    { create(:customer) }
+    let!(:locker)      { create(:locker) }
+    let!(:reservation) { build(:reservation, customer: customer) }
+    before { reservation.save }
+
+    it "destroys reservation" do
+      expect{ reservation.destroy }.to change{ Reservation.count }.by(-1)
+    end
+    it "makes reservation's lockers unassigned" do
+      locker = reservation.lockers.first
+      expect(locker.assigned).to be_true
+      reservation.destroy
+      expect(locker.assigned).to be_false
+    end
+    it "makes reservation's lockers belong to no reservation" do
+      locker = reservation.lockers.first
+      expect(locker.reservation_id).not_to be_nil
+      reservation.destroy
+      expect(locker.reservation_id).to be_nil
+    end
+  end
+
 end

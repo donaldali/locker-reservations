@@ -27,7 +27,7 @@ describe "Reservation Pages" do
 
         it "creates reservation" do
           expect{ click_button "Make Reservation" }.
-            to change{ Reservation.count }.by(1)
+              to change{ Reservation.count }.by(1)
         end
         it "assignes one locker per bag" do
           click_button "Make Reservation"
@@ -40,7 +40,7 @@ describe "Reservation Pages" do
         it "goes to the reservation's show page" do
           click_button "Make Reservation"
           expect(current_path).
-            to eq(reservation_path(customer.reservations.first))
+              to eq(reservation_path(customer.reservations.first))
         end
       end
 
@@ -49,7 +49,7 @@ describe "Reservation Pages" do
 
         it "creates reservation" do
           expect{ click_button "Make Reservation" }.
-            to change{ Reservation.count }.by(1)
+              to change{ Reservation.count }.by(1)
         end
         it "assignes one locker per bag" do
           click_button "Make Reservation"
@@ -70,7 +70,7 @@ describe "Reservation Pages" do
 
         it "creates reservation" do
           expect{ click_button "Make Reservation" }.
-            to change{ Reservation.count }.by(1)
+              to change{ Reservation.count }.by(1)
         end
         it "assignes one locker per bag" do
           click_button "Make Reservation"
@@ -91,7 +91,7 @@ describe "Reservation Pages" do
 
         it "creates reservation" do
           expect{ click_button "Make Reservation" }.
-            to change{ Reservation.count }.by(1)
+              to change{ Reservation.count }.by(1)
         end
         it "assignes one locker per bag" do
           click_button "Make Reservation"
@@ -111,7 +111,7 @@ describe "Reservation Pages" do
 
           it "creates reservation" do
             expect{ click_button "Make Reservation" }.
-            to change{ Reservation.count }.by(1)
+                to change{ Reservation.count }.by(1)
           end
           it "assignes all lockers" do
             click_button "Make Reservation"
@@ -128,7 +128,7 @@ describe "Reservation Pages" do
 
           it "creates reservation" do
             expect{ click_button "Make Reservation" }.
-            to change{ Reservation.count }.by(1)
+                to change{ Reservation.count }.by(1)
           end
           it "assignes all lockers" do
             click_button "Make Reservation"
@@ -145,7 +145,7 @@ describe "Reservation Pages" do
 
         it "does not create reservation" do
           expect{ click_button "Make Reservation" }.
-            not_to change{ Reservation.count }
+              not_to change{ Reservation.count }
         end
         it "does not assign any locker" do
           click_button "Make Reservation"
@@ -160,7 +160,7 @@ describe "Reservation Pages" do
 
         it "does not create reservation" do
           expect{ click_button "Make Reservation" }.
-            not_to change{ Reservation.count }
+              not_to change{ Reservation.count }
         end
         it "does not assign any locker" do
           click_button "Make Reservation"
@@ -200,8 +200,43 @@ describe "Reservation Pages" do
           href: print_ticket_reservation_path(reservation)) }
     it { should have_link("Print Lockers", 
           href: print_lockers_reservation_path(reservation)) }
-    it { should have_link("Bag(s) Received") }
-    it { should have_link("Bag(s) Returned") }
+    it { should have_link("Bag(s) Received", href: root_path) }
+    it { should have_link("Bag(s) Returned", 
+          href: reservation_path(reservation)) }
+  end
+
+  describe "destroy reservation" do
+    before { make_reservation_for customer }
+    let(:reservation) { customer.reservations.first }
+
+    it "destroys the reservation" do
+      expect{ click_link("Bag(s) Returned") }.
+          to change{ Reservation.count }.by(-1)
+    end
+    it "redirects to root path" do
+      click_link("Bag(s) Returned")
+      expect(current_path).to eq(root_path)
+    end
+    it "makes all the reservation's lockers unassigned" do
+      locker1 = reservation.lockers.first
+      locker2 = reservation.lockers.last
+
+      expect(locker1.assigned).to be_true
+      expect(locker2.assigned).to be_true
+      click_link("Bag(s) Returned")
+      expect(locker1.reload.assigned).to be_false
+      expect(locker2.reload.assigned).to be_false
+    end
+    it "makes all the reservation's lockers belong to no reservation" do
+      locker1 = reservation.lockers.first
+      locker2 = reservation.lockers.last
+
+      expect(locker1.reservation_id).not_to be_nil
+      expect(locker2.reservation_id).not_to be_nil
+      click_link("Bag(s) Returned")
+      expect(locker1.reload.reservation_id).to be_nil
+      expect(locker2.reload.reservation_id).to be_nil
+    end
   end
 
 

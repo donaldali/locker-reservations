@@ -19,6 +19,11 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.find(params[:id])
   end
 
+  def destroy
+    Reservation.find(params[:id]).destroy
+    redirect_to root_path
+  end
+
   def search
   end
 
