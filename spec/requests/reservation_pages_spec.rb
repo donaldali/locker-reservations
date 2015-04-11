@@ -205,6 +205,7 @@ describe "Reservation Pages" do
           href: reservation_path(reservation)) }
   end
 
+
   describe "destroy reservation" do
     before { make_reservation_for customer }
     let(:reservation) { customer.reservations.first }
@@ -288,6 +289,29 @@ describe "Reservation Pages" do
         expect(page).to have_text("No Reservation Found.")
       end
     end
+  end
+
+
+  describe "print_ticket" do
+    before { make_reservation_for customer }
+    let(:reservation) { customer.reservations.first }
+    before { visit print_ticket_reservation_path reservation }
+
+    it { should have_text("Reservation Number") }
+    it { should have_text("#{ reservation.number }") }
+    it { should have_link("Continue", href: reservation_path(reservation)) }
+  end
+
+
+  describe "print_lockers" do
+    before { make_reservation_for customer }
+    let(:reservation) { customer.reservations.first }
+    before { visit print_lockers_reservation_path reservation }
+
+    it { should have_text("#{ reservation.number }") }
+    it { should have_text("#{ reservation.lockers.first.number }") }
+    it { should have_text("#{ reservation.lockers.last.number }") }
+    it { should have_link("Continue", href: reservation_path(reservation)) }
   end
 
 end

@@ -40,6 +40,14 @@ class ReservationsController < ApplicationController
     end
   end
 
+  def print_ticket
+    @reservation = Reservation.find(params[:id])
+  end
+
+  def print_lockers
+    @reservation = Reservation.find(params[:id])
+  end
+
 
   private
 
