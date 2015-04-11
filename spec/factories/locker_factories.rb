@@ -3,6 +3,5 @@ FactoryGirl.define do
     sequence(:number) { |n| "M#{n}" }
     size "MEDIUM"
     assigned false
-    reservation
   end
 end

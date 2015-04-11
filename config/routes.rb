@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :reservations, only: [:new, :create, :show, :destroy] do
+    member do
+      get 'print_ticket'
+      get 'print_lockers'
+    end
+    get 'search', on: :collection
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

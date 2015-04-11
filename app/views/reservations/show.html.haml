@@ -1,0 +1,13 @@
+%h3= "Reservation for #{ @reservation.customer.full_name }"
+
+= render "ticket"
+
+= render "lockers"
+
+= link_to "Print Ticket", print_ticket_reservation_path(@reservation)
+= link_to "Print Lockers ", print_lockers_reservation_path(@reservation)
+
+%br
+
+= link_to "Bags Received"#, concierge_services_path
+= link_to "Bags Returned"#, @reservation, method: :delete

@@ -24,7 +24,7 @@ Customer.create( first_name: "Foo", last_name:  "Bar",
 # Create lockers
 def create_lockers(num, size)
   num.times do |index|
-    number = "#{ size[0] }-#{ index + 1 }"
+    number = "#{ size[0] }-#{ (index + 1).to_s.rjust(4, '0') }"
     Locker.create( number: number, size: size, assigned: false )
   end
 end
