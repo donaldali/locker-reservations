@@ -3,6 +3,8 @@ class Reservation < ActiveRecord::Base
 
   attr_accessor :bags_owner, :small, :medium, :large
 
+  scope :number_order, -> { order(:number) }
+
   belongs_to :customer
   has_many :lockers
 
@@ -22,7 +24,7 @@ class Reservation < ActiveRecord::Base
   def set_reservation_number
     caps = ('A'..'Z').to_a
     loop do
-      self.number = Faker::Number.number(4)
+      self.number = "-#{Faker::Number.number(4)}"
       3.times { self.number = caps.sample + self.number }
       break unless Reservation.exists?(number: self.number)
     end

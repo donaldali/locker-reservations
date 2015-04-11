@@ -3,13 +3,12 @@ require 'spec_helper'
 describe "Reservation Pages" do 
   let(:customer) { create(:customer) }
   let!(:lockers) { create_list(:locker, 3, size: "MEDIUM") }
-  # let(:reservation) { create(:reservation) }
   subject { page }
 
   describe "new" do 
     before { visit new_reservation_path }
 
-    it { should have_text("Receive Bag") }
+    it { should have_text("Receive Bag(s)") }
     it { should have_selector("input[type=search]") }
     it { should have_selector("#reservation_large") }
     it { should have_selector("#reservation_medium") }
@@ -17,9 +16,7 @@ describe "Reservation Pages" do
     it { should have_submit("Make Reservation") }
 
     describe "making reservation" do 
-      # let(:customer) { create(:customer) }
       let!(:lg_lockers) { create_list(:locker, 3, size: "LARGE") }
-      # let!(:md_lockers) { create_list(:locker, 3, size: "MEDIUM") }
       let!(:sm_lockers) { create_list(:locker, 3, size: "SMALL") }
       before do
         fill_in "Bag's Owner", with: customer.identifier
@@ -42,7 +39,8 @@ describe "Reservation Pages" do
         end
         it "goes to the reservation's show page" do
           click_button "Make Reservation"
-          expect(current_path).to eq(reservation_path(customer.reservations.first))
+          expect(current_path).
+            to eq(reservation_path(customer.reservations.first))
         end
       end
 
@@ -202,8 +200,59 @@ describe "Reservation Pages" do
           href: print_ticket_reservation_path(reservation)) }
     it { should have_link("Print Lockers", 
           href: print_lockers_reservation_path(reservation)) }
-    it { should have_link("Bags Received") }
-    it { should have_link("Bags Returned") }
+    it { should have_link("Bag(s) Received") }
+    it { should have_link("Bag(s) Returned") }
+  end
+
+
+  describe "search" do
+    before do
+      make_reservation_for customer
+      visit search_reservations_path
+    end
+    let(:reservation) { customer.reservations.first }
+
+    its(:current_path) { should eq(search_reservations_path) }
+    it { should have_text("Return Bag(s)") }
+    it { should have_text("Reservation Number") }
+    it { should have_selector("#reservation_number") }
+    it { should have_submit("Find Reservation") }
+
+    context "with a valid reservation number" do
+      before { search_for_reservation_with reservation.number }
+
+      it "shows the reservation" do
+        expect(page.current_path).to eq(reservation_path(reservation))
+      end
+      it "shows appropriate flash message" do
+        expect(page).to have_css(".flash")
+        expect(page).to have_text("return #{customer.first_name}'s bag(s).")
+      end
+    end
+
+    context "with valid reservation number but wrong capitalization" do
+      before { search_for_reservation_with reservation.number.swapcase }
+
+      it "shows the reservation" do
+        expect(page.current_path).to eq(reservation_path(reservation))
+      end
+      it "shows appropriate flash message" do
+        expect(page).to have_css(".flash")
+        expect(page).to have_text("return #{customer.first_name}'s bag(s).")
+      end
+    end
+
+    context "with an invalid reservation number" do
+      before { search_for_reservation_with "foo42" }
+
+      it "does not show the reservation" do
+        expect(page.current_path).not_to eq(reservation_path(reservation))
+      end
+      it "shows appropriate flash message" do
+        expect(page).to have_css(".flash")
+        expect(page).to have_text("No Reservation Found.")
+      end
+    end
   end
 
 end

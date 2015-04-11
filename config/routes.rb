@@ -4,7 +4,10 @@ Rails.application.routes.draw do
       get 'print_ticket'
       get 'print_lockers'
     end
-    get 'search', on: :collection
+    collection do
+      get 'search'
+      get 'searching'
+    end
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

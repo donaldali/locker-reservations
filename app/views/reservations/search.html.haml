@@ -1,0 +1,13 @@
+%h3 Return Bag(s)
+
+= form_tag(searching_reservations_path, method: :get) do
+  = label_tag :reservation_number, "Reservation Number"
+  = search_field_tag(:reservation_number, params[:reservation_number], 
+                                          list: 'reservation-numbers')
+  %datalist#reservation-numbers
+    - Reservation.all.number_order.each do |reservation|
+      %option{value: "#{reservation.number}"}
+
+  %br
+
+  = submit_tag "Find Reservation"
