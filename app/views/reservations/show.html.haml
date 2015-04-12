@@ -1,13 +1,19 @@
-%h3= "Reservation for #{ @reservation.customer.full_name }"
+.show-reservation
+  %h2= "Reservation for #{ @reservation.customer.full_name }"
 
-= render "ticket"
+  = render "ticket"
 
-= render "lockers"
+  = render "lockers"
 
-= link_to "Print Ticket", print_ticket_reservation_path(@reservation)
-= link_to "Print Lockers ", print_lockers_reservation_path(@reservation)
+  .left-link.top-link
+    = link_to "Print Ticket", print_ticket_reservation_path(@reservation)
+  .right-link.top-link
+    = link_to "Print Lockers ", print_lockers_reservation_path(@reservation)
 
-%br
+  %br
 
-= link_to "Bag(s) Received", root_path
-= link_to "Bag(s) Returned", @reservation, method: :delete
+  .left-link
+    = link_to "Bag(s) Received", root_path, class: 'alt-link'
+  .right-link
+    = link_to "Bag(s) Returned", @reservation, method: :delete, 
+                                 class: 'danger-link'

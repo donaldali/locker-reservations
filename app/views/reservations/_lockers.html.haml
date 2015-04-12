@@ -1,10 +1,13 @@
-%p= "Lockers for reservation #{ @reservation.number }"
+.lockers
+  %p
+    = "#{ 'Locker'.pluralize @reservation.lockers.count } for reservation "
+    %strong= "#{ @reservation.number }"
 
-- lockers = @reservation.lockers
-%ul
-  - if lockers.large.exists?
-    %li= lockers.large.order(:number).pluck(:number).join(", ") 
-  - if lockers.medium.exists?
-    %li= lockers.medium.order(:number).pluck(:number).join(", ")
-  - if lockers.small.exists?
-    %li= lockers.small.order(:number).pluck(:number).join(", ")
+  - lockers = @reservation.lockers
+  %ul
+    - if lockers.large.exists?
+      %li= lockers.large.order(:number).pluck(:number).join(", ") 
+    - if lockers.medium.exists?
+      %li= lockers.medium.order(:number).pluck(:number).join(", ")
+    - if lockers.small.exists?
+      %li= lockers.small.order(:number).pluck(:number).join(", ")

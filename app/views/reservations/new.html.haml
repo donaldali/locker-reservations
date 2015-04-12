@@ -1,32 +1,32 @@
-%h2 Receive Bag(s)
+.new-reservation
+  %h2 Receive Bag(s)
 
-- if @reservation.errors.any?
-  %p= "Reservation could not be made because of the following: "
-  %ul
-    - @reservation.errors.full_messages.each do |message|
-      %li= message
-  %br
+  - if @reservation.errors.any?
+    .validation-errors
+      %p= "Reservation could not be made because of the following: "
+      %ul
+        - @reservation.errors.full_messages.each do |message|
+          %li= message
 
-= form_for @reservation do |f|
-  = f.label :bags_owner, "Bag's Owner"
-  = f.search_field :bags_owner, list: 'customers', 
+  .new-form
+    = form_for @reservation do |f|
+      .form-row
+        = f.label :bags_owner, "Bag's Owner"
+        = f.search_field :bags_owner, list: 'customers', 
                                 placeholder: "RoomNumber, Name"
-  %datalist#customers
-    - Customer.checked_in.room_order.each do |customer|
-      %option{value: "#{customer.identifier}"}
+        %datalist#customers
+          - Customer.checked_in.room_order.each do |customer|
+            %option{value: "#{customer.identifier}"}
 
-  %br
+      %p Number of bags
+      .form-row
+        = f.label :large
+        = f.number_field :large,  in: 0..@max_bags_allowed[:large],  step: 1
 
-  %p Number of bags
-  = f.label :large
-  = f.number_field :large,  in: 0..@max_bags_allowed[:large],  step: 1
+        = f.label :medium
+        = f.number_field :medium, in: 0..@max_bags_allowed[:medium], step: 1
 
-  = f.label :medium
-  = f.number_field :medium, in: 0..@max_bags_allowed[:medium], step: 1
+        = f.label :small
+        = f.number_field :small,  in: 0..@max_bags_allowed[:small],  step: 1
 
-  = f.label :small
-  = f.number_field :small,  in: 0..@max_bags_allowed[:small],  step: 1
-
-  %br
-
-  = f.submit "Make Reservation"
+      = f.submit "Make Reservation"

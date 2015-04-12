@@ -1,1 +1,3 @@
-%p= "Reservation Number: #{ @reservation.number }"
+%p.ticket
+  = "Reservation Number: "
+  %strong= "#{ @reservation.number }"

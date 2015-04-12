@@ -1,10 +1,357 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:300,400,500|Nunito:700);
+
+/*
+  ========================================
+  Variables
+  ========================================
+*/
+$width: 800px;
+$font-family: 'Roboto', sans-serif;
+$color: #333b41;
+$error-color: #dd3c10;
+$error-bg-color: #ffebe8;
+$link-blue: #4b99d7;
+$green: #33cc33;
+$red: #ee3333;
+
+/*
+  ========================================
+  Reset
+  ========================================
+*/
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+
+/*
+  ========================================
+  Global
+  ========================================
+*/
+html,
+body {
+  height: 100%;
+}
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+          border-radius: $radius;
+}
+body {
+  background-color: #e2e7ec;
+  color: $color;
+  font-family: $font-family;
+  font-weight: 300;
+  font-size: 18px;
+}
+h1,
+h2 {
+  padding: 15px 0;
+}
+h1 {
+  font-size: 32px;
+  font-weight: 500;
+}
+h2 {
+  font-size: 28px;
+  font-weight: 400;
+}
+strong {
+  font-weight: 400;
+}
+.row-container{
+  width: $width;
+  margin: 0 auto;
+  position: relative;
+}
+.left-link,
+.right-link {
+  display: inline-block;
+}
+.right-link {
+  margin-left: 20px;
+}
+.top-link {
+  margin-bottom: 20px;
+}
+a {
+  color: $link-blue;
+}
+li {
+  margin-left: 30px;
+  line-height: 1.5;
+  list-style-type: square;
+  font-size: 16px;
+}
+.main-container {
+  margin-top: 20px;
+  a {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid $link-blue;
+    text-decoration: none;
+    @include border-radius(5px);
+    padding: 0 15px;
+    width: 200px;
+    text-align: center;
+    background-color: #fff;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: $link-blue;
+      color: #fff;
+    }
+  }
+  .alt-link {
+    border-color: $green;
+    color: $green;
+    &:hover {
+      background-color: $green;
+    }
+  }
+  .danger-link {
+    border-color: $red;
+    color: $red;
+    &:hover {
+      background-color: $red;
+    }
+  }
+}
+.ticket,
+.lockers {
+  margin-bottom: 20px;
+}
+
+/*
+  ========================================
+  Form
+  ========================================
+*/
+input {
+  height: 36px;
+  @include border-radius(5px);
+  border: 1px solid #bdc7d8;
+  padding-left: 10px;
+  font-family: $font-family;
+  font-weight: 300;
+  font-size: 18px;
+  color: $color;
+}
+input:focus {
+  outline: 0;
+}
+input[type=submit] {
+  cursor: pointer;
+  background: #ffc733;
+  background: linear-gradient(#f7efc4, #f8c744 4%, #ffc733 5%);
+  border-color: #b99400;
+  color: #222629;
+  text-shadow: 0px 1px 0 rgba(255,255,255,0.6);
+  padding: 10px 10px;
+  height: 50px; 
+  opacity: 0.9;
+  transition: all 0.2s ease-in-out;
+  font-weight: 400;
+  font-size: 16px;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+.form-row {
+  margin-bottom: 20px;
+}
+
+/*
+  ========================================
+  Errors
+  ========================================
+*/
+.field_with_errors {
+  display: inline-block;
+
+  label {
+    color: $error-color;
+  }
+  input {
+    border-color: $error-color;
+  }
+}
+.validation-errors {
+  border: 1px solid;
+  @extend .error;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+/*
+  ========================================
+  Header
+  ========================================
+*/
+header {
+  background-color: #fff;
+  border-bottom: 1px solid #d2d7dc;
+  height: 64px;
+  line-height: 44px;
+  font-family: $font-family;
+  font-weight: 500;
+  font-size: 24px;
+
+  .row-container {
+    position: relative;
+    top: 10px;
+  }
+  .main-logo,
+  .concierge-logo,
+  .initials-holder,
+  .initials,
+  .rest {
+    display: inline-block;
+  }
+  .main-logo {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+  }
+  .initials {
+    background-color: $green;
+    background: linear-gradient($green, #548543);
+    color: #fff;
+    @include border-radius(5px);
+    padding: 0 5px;
+  }
+  .rest {
+    color: #206fa5;
+    position: relative;
+    left: -10px;
+  }
+  .concierge-logo {
+    position: absolute;
+    right: 0;
+  }
+  a:hover .concierge-logo {
+    color: $green;
+  }
+}
+
+/*
+  ========================================
+  Home
+  ========================================
+*/
+.concierge_services.index {
+  background: url(concierge.jpg) no-repeat center center fixed;
+  background-size: cover;
+  h1 {
+    color: #fff;
+  }
+}
+
+/*
+  ========================================
+  New
+  ========================================
+*/
+.new-reservation {
+  p {
+    margin-bottom: 5px;
+    font-weight: 400;
+  }
+  input[type=search] {
+    width: 353px;
+  }
+  input[type=number] {
+    margin-right: 20px;
+    width: 80px;
+  }
+}
+
+/*
+  ========================================
+  Show
+  ========================================
+*/
+.show-reservation {
+  .lockers {
+    p {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+/*
+  ========================================
+  Flash Message
+  ========================================
+*/
+.flash-holder {
+  position: relative;
+  margin-top: 10px;
+}
+.flash {
+  padding: 10px;
+  border: 1px solid;
+  margin: 0 auto;
+}
+.error {
+  color: $error-color;
+  border-color: $error-color;
+  background-color: $error-bg-color;
+}
+.notice {
+  border-color: #e2c822;
+  background-color: #fff9d7;
+}
+
 /*
   ========================================
   Printing
   ========================================
 */
 @media print {
-  .no-print {
+  .no-print,
+  header {
     display: none;
   }
 }
