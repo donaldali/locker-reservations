@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto:300,400,500|Nunito:700);
+@import url(http://fonts.googleapis.com/css?family=Roboto:300,400,500|Dosis:800);
 
 /*
   ========================================
@@ -257,9 +257,10 @@ header {
     display: inline-block;
   }
   .main-logo {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
+    font-family: 'Dosis', sans-serif;
+    font-weight: 800;
     font-size: 32px;
+    letter-spacing: 0.5px;
   }
   .initials {
     background-color: $green;
@@ -271,7 +272,7 @@ header {
   .rest {
     color: #206fa5;
     position: relative;
-    left: -10px;
+    left: -5px;
   }
   .concierge-logo {
     position: absolute;

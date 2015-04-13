@@ -1,15 +1,7 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
 Customer.destroy_all
 Locker.destroy_all
 
-num_customers = 20
+num_customers = 200
 
 # Create customers
 num_customers.times do
@@ -18,7 +10,11 @@ num_customers.times do
                    room_number: "#{ Faker::Number.number(4) }",
                    checked_in: true )
 end
-Customer.create( first_name: "Foo", last_name:  "Bar",
+Customer.create( first_name: "Foo", last_name:  "Doe",
+                 room_number: "4242", checked_in: true )
+Customer.create( first_name: "Bar", last_name:  "Doe",
+                 room_number: "4242", checked_in: true )
+Customer.create( first_name: "Baz", last_name:  "Doe",
                  room_number: "4242", checked_in: true )
 
 # Create lockers
