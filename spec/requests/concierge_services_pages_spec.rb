@@ -6,6 +6,7 @@ describe "Concierge Services Pages" do
   describe "index" do
     before { visit concierge_services_path }
 
+    it { should have_title("Concierge Services | UT Hotel") }
     it { should have_text("Concierge Services") }
     it { should have_link("Receive Bag(s)", href: new_reservation_path) }
     it { should have_link("Return Bag(s)", href: search_reservations_path) }

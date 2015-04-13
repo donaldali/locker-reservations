@@ -6,6 +6,12 @@ jQuery ->
   if $('#new_reservation').length
     $('#reservation_bags_owner').closest('div input').focus()
 
+    # Custom validator to ensure that there is at least one
+    # available locker
+    $.validator.addMethod 'lockerAvailable', ((val, ele, param) ->
+      lockerLeft().small > 0),
+      'THERE ARE CURRENTLY NO AVALIABLE LOCKERS.'
+    
     # Custom validator to ensure that at least one bag type is 
     # more than zero
     $.validator.addMethod 'allNotBlank', ((val, ele, param) ->
@@ -39,17 +45,20 @@ jQuery ->
           required: true
           remote:   '/customers/valid_identifier'
         'reservation[large]':
-          digits:        true
-          allNotBlank:   true
-          combinedValid: true
+          digits:          true
+          lockerAvailable: true
+          allNotBlank:     true
+          combinedValid:   true
         'reservation[medium]':
-          digits:        true
-          allNotBlank:   true
-          combinedValid: true
+          digits:          true
+          lockerAvailable: true
+          allNotBlank:     true
+          combinedValid:   true
         'reservation[small]':
-          digits:        true
-          allNotBlank:   true
-          combinedValid: true
+          digits:          true
+          lockerAvailable: true
+          allNotBlank:     true
+          combinedValid:   true
 
       messages:
         'reservation[bags_owner]':

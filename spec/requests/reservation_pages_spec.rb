@@ -8,6 +8,7 @@ describe "Reservation Pages" do
   describe "new" do 
     before { visit new_reservation_path }
 
+    it { should have_title("Make Reservation | UT Hotel") }
     it { should have_text("Receive Bag(s)") }
     it { should have_selector("input[type=search]") }
     it { should have_selector("#reservation_large") }
@@ -192,6 +193,7 @@ describe "Reservation Pages" do
     let(:reservation) { customer.reservations.first }
 
     its(:current_path) { should eq(reservation_path(reservation)) }
+    it { should have_title("Reservation | UT Hotel") }
     it { should have_text("#{ customer.full_name }") }
     it { should have_text("#{ reservation.number }") }
     it { should have_text("#{ reservation.lockers.first.number }") }
@@ -249,6 +251,7 @@ describe "Reservation Pages" do
     let(:reservation) { customer.reservations.first }
 
     its(:current_path) { should eq(search_reservations_path) }
+    it { should have_title("Find Reservation | UT Hotel") }
     it { should have_text("Return Bag(s)") }
     it { should have_text("Reservation Number") }
     it { should have_selector("#reservation_number") }
@@ -297,6 +300,7 @@ describe "Reservation Pages" do
     let(:reservation) { customer.reservations.first }
     before { visit print_ticket_reservation_path reservation }
 
+    it { should have_title("Reservation Ticket | UT Hotel") }
     it { should have_text("Reservation Number") }
     it { should have_text("#{ reservation.number }") }
     it { should have_link("Continue", href: reservation_path(reservation)) }
@@ -308,6 +312,7 @@ describe "Reservation Pages" do
     let(:reservation) { customer.reservations.first }
     before { visit print_lockers_reservation_path reservation }
 
+    it { should have_title("Reservation Lockers | UT Hotel") }
     it { should have_text("#{ reservation.number }") }
     it { should have_text("#{ reservation.lockers.first.number }") }
     it { should have_text("#{ reservation.lockers.last.number }") }
