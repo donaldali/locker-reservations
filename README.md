@@ -2,6 +2,8 @@
 
 An app to manage locker reservations at a faux big Vegas hotel -- UT Hotel.
 
+#### [_View on Heroku here_](http://dna-locker-reservations.herokuapp.com/ "Locker Reservations")
+
 ## Tests
 
 Run the test suite with `rake` or `rspec spec/`.
