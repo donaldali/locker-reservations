@@ -199,7 +199,8 @@ input[type=submit] {
   }
 }
 .form-row {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  position: relative;
 }
 
 /*
@@ -210,9 +211,6 @@ input[type=submit] {
 .field_with_errors {
   display: inline-block;
 
-  label {
-    color: $error-color;
-  }
   input {
     border-color: $error-color;
   }
@@ -222,6 +220,15 @@ input[type=submit] {
   @extend .error;
   padding: 10px;
   margin-bottom: 20px;
+}
+div.invalid {
+  color: $error-color;
+  font-size: 16px;
+  position: absolute;
+  bottom: -20px;
+}
+input.invalid {
+  border-color: $error-color;
 }
 
 /*
@@ -285,6 +292,14 @@ header {
   background-size: cover;
   h1 {
     color: #fff;
+  }
+  .home a {
+    color: #fff;
+    background-color: $link-blue;
+    &:hover {
+      color: $link-blue;
+      background-color: #fff;
+    }
   }
 }
 

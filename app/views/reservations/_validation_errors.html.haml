@@ -1,0 +1,7 @@
+- if @reservation.errors.any?
+  .validation-errors
+    %p= "Reservation could not be made because of the following: "
+    %ul
+      - @reservation.errors.full_messages.each do |message|
+        %li= message
+        

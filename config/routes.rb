@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     collection do
       get 'search'
       get 'searching'
+      get 'valid_number'
     end
   end
+
+  get '/customers/valid_identifier', to: 'customers#valid_identifier'
 end

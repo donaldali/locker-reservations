@@ -48,6 +48,12 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.find(params[:id])
   end
 
+  def valid_number
+    valid = !Reservation.
+               find_by(number: params[:reservation_number].upcase).nil?
+    render json: valid
+  end
+
 
   private
 

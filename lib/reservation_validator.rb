@@ -40,7 +40,7 @@ class ReservationValidator < ActiveModel::Validator
        (large_requested + medium_requested + small_requested) > allowed[:small]
       left = Locker.lockers_left
       record.errors[:base] << "Not enough free lockers for bags requested. " \
-                              "Locker available - Large: #{left[:large]}; " \
+                              "Lockers available - Large: #{left[:large]}; " \
                               "Medium: #{left[:medium]}; Small: #{left[:small]}."
     end
   end

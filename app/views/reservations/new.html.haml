@@ -1,12 +1,7 @@
 .new-reservation
   %h2 Receive Bag(s)
 
-  - if @reservation.errors.any?
-    .validation-errors
-      %p= "Reservation could not be made because of the following: "
-      %ul
-        - @reservation.errors.full_messages.each do |message|
-          %li= message
+  = render "validation_errors"
 
   .new-form
     = form_for @reservation do |f|
